@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { routes } from "../routes";
 
 function NotFound() {
   return (
@@ -10,7 +11,7 @@ function NotFound() {
             <h1 style={styles.title}>404</h1>
             <p style={styles.desc}>The page you are looking does not exists</p>
             <div>
-              <Link to={"/"}>
+              <Link to={routes.home}>
                 <button className="btn btn-lg btn-primary">Go Home</button>
               </Link>
             </div>

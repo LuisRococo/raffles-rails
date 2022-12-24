@@ -1,0 +1,2 @@
+class FolioMetadata < ApplicationRecord
+end

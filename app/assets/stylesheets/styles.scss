@@ -2,6 +2,10 @@
     --bg-gray: #e6ebe7
 }
 
+* {
+    box-sizing: border-box;
+}
+
 .min-height {
     min-height: 100vh;
 }

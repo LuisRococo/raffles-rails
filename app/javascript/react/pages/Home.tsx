@@ -3,7 +3,7 @@ import Header from "../components/home/Header";
 
 function Home() {
   return (
-    <div>
+    <div className="min-height">
       <Header />
     </div>
   );

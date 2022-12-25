@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { RaffleResponse } from "../../interfaces/api";
+import { routes } from "../../routes";
 
 interface Props {
   raffle: RaffleResponse;
@@ -15,7 +17,9 @@ function RaffleCard({ raffle }: Props) {
           alt=""
         />
         <h3 className="mb-3">{raffle.title}</h3>
-        <button className="btn btn-primary btn-lg">Entrar</button>
+        <Link to={routes.raffle(raffle.id)}>
+          <button className="btn btn-primary btn-lg">Entrar</button>
+        </Link>
       </div>
     </div>
   );

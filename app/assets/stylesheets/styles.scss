@@ -28,3 +28,25 @@
 .section-hr {
     margin: 10px 0 20px;
 }
+
+/* RAFFLES */
+
+.user-ticket-btn {
+    padding: 7px 10px;
+    background-color: #2dd61e;
+    color: #fff;
+    font-size: 1em;
+    border-radius: 10px;
+    margin: 5px 2px;
+    cursor: pointer;
+    min-width: 70px;
+    text-align: center;
+}
+
+.user-ticket-btn:hover {
+    background-color: #2fca21;
+}
+
+.user-ticket-btn:active {
+    background-color: #22c313;
+}

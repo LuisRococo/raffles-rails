@@ -9,7 +9,10 @@ interface Props {
 
 function UserTicket({ number, onClick }: Props) {
   return (
-    <div className="user-ticket-btn" onClick={() => onClick(number.number)}>
+    <div
+      className="user-ticket-btn avoid-selection"
+      onClick={() => onClick(number.number)}
+    >
       {formatNumber(number.number)}
     </div>
   );

@@ -21,9 +21,20 @@ function TicketsContainer({ raffleId }: Props) {
     setUserTickets(tickets);
   }
 
-  function handleAddUserTicket(numberToAdd: IRaffleTickets) {
-    const newTickets = [...new Set([...userTickets, numberToAdd])];
-    setUserTickets(newTickets);
+  function isTicketAlreadySelected(ticketToCheck: IRaffleTickets) {
+    for (let i = 0; i < userTickets.length; i++) {
+      const userTicket = userTickets[i];
+      if (userTicket.number === ticketToCheck.number) return true;
+    }
+    return false;
+  }
+
+  function addUserTicket(numberToAdd: IRaffleTickets) {
+    if (numberToAdd.status === 0) {
+      if (!isTicketAlreadySelected(numberToAdd)) {
+        setUserTickets([...userTickets, numberToAdd]);
+      }
+    }
   }
 
   function handleUserContainerClick(event: any) {
@@ -37,8 +48,8 @@ function TicketsContainer({ raffleId }: Props) {
       }
     );
 
-    if (clickedNumber && clickedNumber.status === 0) {
-      setUserTickets([...new Set([...userTickets, clickedNumber])]);
+    if (clickedNumber) {
+      addUserTicket(clickedNumber);
     }
   }
 
@@ -48,8 +59,16 @@ function TicketsContainer({ raffleId }: Props) {
   }
 
   function getTicketClass(ticket: IRaffleTickets) {
-    let classes = "ticket";
-    if (ticket.status !== 0) classes += " ticket-owned";
+    let classes = "ticket avoid-selection";
+
+    if (ticket.status !== 0) {
+      classes += " ticket-owned";
+    }
+
+    if (isTicketAlreadySelected(ticket)) {
+      classes += " ticket-selected";
+    }
+
     return classes;
   }
 

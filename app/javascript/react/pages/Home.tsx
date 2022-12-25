@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/home/Header";
 import Message from "../components/home/Message";
 import RaffleCard from "../components/home/RaffleCard";
+import { fetchRaffles } from "../helpers/api";
+import { RaffleResponse } from "../interfaces/api";
 
 function Home() {
+  const [raffles, setRaffles] = useState<RaffleResponse[]>([]);
+
+  async function getRaffles() {
+    const raffles: RaffleResponse[] = await fetchRaffles();
+    setRaffles(raffles);
+  }
+
+  useEffect(() => {
+    getRaffles();
+  }, []);
+
   return (
     <div className="min-height">
       <Header />
@@ -18,9 +31,9 @@ function Home() {
 
       <div className="container mb-5">
         <div className="row">
-          <RaffleCard />
-          <RaffleCard />
-          <RaffleCard />
+          {raffles.map((raffle) => {
+            return <RaffleCard key={raffle.id} raffle={raffle} />;
+          })}
         </div>
       </div>
     </div>

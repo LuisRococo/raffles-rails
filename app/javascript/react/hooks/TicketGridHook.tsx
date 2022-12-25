@@ -51,7 +51,7 @@ function useTicketGrid(raffleId: number, limit: number) {
     getGridTickets();
   }, [page]);
 
-  return { gridTickets, next, previous };
+  return { gridTickets, next, previous, page };
 }
 
 export default useTicketGrid;

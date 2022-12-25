@@ -3,18 +3,19 @@ import { useParams } from "react-router-dom";
 import UserTickets from "../components/raffle/UserTickets";
 import { fetchRaffle } from "../helpers/api";
 import useTicketGrid from "../hooks/TicketGridHook";
-import {
-  RaffleResponse,
-  RaffleTicketsResponse,
-} from "../interfaces/apiInterfaces";
+import { RaffleResponse } from "../interfaces/apiInterfaces";
 import { IRaffleTickets } from "../interfaces/raffleInterfaces";
 
 function Raffle() {
+  const gridFetchLimit = 200;
   const [userTickets, setUserTickets] = useState<IRaffleTickets[]>([]);
   const [raffle, setRaffle] = useState<RaffleResponse>();
   let { id: raffleId } = useParams();
   if (!raffleId) raffleId = "";
-  const { gridTickets, next, previous } = useTicketGrid(+raffleId, 200);
+  const { page, gridTickets, next, previous } = useTicketGrid(
+    +raffleId,
+    gridFetchLimit
+  );
 
   function handleRemoveTicket(numberToDelete: number) {
     let tickets = [...userTickets];
@@ -67,19 +68,30 @@ function Raffle() {
           <hr className="my-4" />
 
           <div>
-            <div className="d-flex justify-content-end mb-3">
-              <button
-                onClick={() => changeGrid(false)}
-                className="btn btn-primary btn-lg"
-              >
-                {"<"}
-              </button>
-              <button
-                onClick={() => changeGrid(true)}
-                className="btn btn-primary btn-lg ms-1"
-              >
-                {">"}
-              </button>
+            <div className="d-flex justify-content-between mb-3">
+              <div className="me-3 text-start">
+                <p className="m-0 p-0">
+                  <strong>Page </strong>
+                  {page}
+                </p>
+                <p className="m-0 p-0 text-muted fst-italic">
+                  Showing <strong>{gridFetchLimit}</strong> tickets
+                </p>
+              </div>
+              <div>
+                <button
+                  onClick={() => changeGrid(false)}
+                  className="btn btn-primary btn-lg"
+                >
+                  {"<"}
+                </button>
+                <button
+                  onClick={() => changeGrid(true)}
+                  className="btn btn-primary btn-lg ms-1"
+                >
+                  {">"}
+                </button>
+              </div>
             </div>
             <div className="tickets-container">
               {gridTickets.length === 0 && (

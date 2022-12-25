@@ -72,3 +72,4 @@ group :test do
 end
 
 gem "cssbundling-rails"
+gem 'will_paginate', '~> 3.3'

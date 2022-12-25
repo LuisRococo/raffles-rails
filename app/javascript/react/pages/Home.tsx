@@ -3,7 +3,7 @@ import Header from "../components/home/Header";
 import Message from "../components/home/Message";
 import RaffleCard from "../components/home/RaffleCard";
 import { fetchRaffles } from "../helpers/api";
-import { RaffleResponse } from "../interfaces/api";
+import { RaffleResponse } from "../interfaces/apiInterfaces";
 
 function Home() {
   const [raffles, setRaffles] = useState<RaffleResponse[]>([]);

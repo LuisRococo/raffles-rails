@@ -1,18 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import UserTickets from "../components/raffle/UserTickets";
+import { fetchRaffleTickets } from "../helpers/api";
+import { formatNumber } from "../helpers/helpers";
+import { RaffleTicketsResponse } from "../interfaces/apiInterfaces";
+import { IRaffleTickets } from "../interfaces/raffleInterfaces";
 
 function Raffle() {
+  const [userTickets, setUserTickets] = useState<IRaffleTickets[]>([]);
+  const [tickets, setTickets] = useState<IRaffleTickets[]>([]);
+  let { id: raffleId } = useParams();
+
   function handleRemoveTicket(numberToDelete: number) {
     let tickets = [...userTickets];
-    tickets = tickets.filter((number) => number !== numberToDelete);
+    tickets = tickets.filter((number) => number.number !== numberToDelete);
     setUserTickets(tickets);
   }
-  const [userTickets, setUserTickets] = useState<number[]>([1, 2, 4]);
+
+  function formatResponseTickets(
+    tickets: RaffleTicketsResponse[]
+  ): IRaffleTickets[] {
+    let formattedTickets: IRaffleTickets[] = [];
+    formattedTickets = tickets.map((ticket) => {
+      return {
+        number: ticket.number,
+        status: ticket.status,
+        formatted: formatNumber(ticket.number),
+      };
+    });
+    return formattedTickets;
+  }
+
+  async function getTickets() {
+    if (raffleId) {
+      const tickets: RaffleTicketsResponse[] = await fetchRaffleTickets(
+        +raffleId,
+        1,
+        100
+      );
+      const formattedTickets = formatResponseTickets(tickets);
+      setTickets(formattedTickets);
+    }
+  }
+
+  useEffect(() => {
+    getTickets();
+  }, []);
 
   return (
     <div className="min-height">
       <div className="container">
-        <div className="section">
+        <div className="my-5">
           <div className="text-center mb-5">
             <img
               style={styles.tryophyImg}
@@ -26,6 +64,22 @@ function Raffle() {
             removeNumber={handleRemoveTicket}
             numbers={userTickets}
           />
+        </div>
+
+        <div className="my-5 text-center">
+          <h2 className="section-header mb-3">Grid</h2>
+          <p className="m-0 p-0 mb-1">You can select * numbers</p>
+          <p className="m-0 p-0 mb-1">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit,
+            voluptatem!
+          </p>
+          <hr className="my-4" />
+
+          <div className="tickets-container">
+            {tickets.map((ticket) => {
+              return <div className="ticket">{ticket.formatted}</div>;
+            })}
+          </div>
         </div>
       </div>
     </div>

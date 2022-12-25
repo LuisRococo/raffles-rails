@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { RaffleResponse } from "../../interfaces/api";
+import { RaffleResponse } from "../../interfaces/apiInterfaces";
 import { routes } from "../../routes";
 
 interface Props {

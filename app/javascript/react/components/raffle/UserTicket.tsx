@@ -1,15 +1,16 @@
 import React from "react";
 import { formatNumber } from "../../helpers/helpers";
+import { IRaffleTickets } from "../../interfaces/raffleInterfaces";
 
 interface Props {
-  number: number;
+  number: IRaffleTickets;
   onClick: (numberClicked: number) => void;
 }
 
 function UserTicket({ number, onClick }: Props) {
   return (
-    <div className="user-ticket-btn" onClick={() => onClick(number)}>
-      {formatNumber(number)}
+    <div className="user-ticket-btn" onClick={() => onClick(number.number)}>
+      {formatNumber(number.number)}
     </div>
   );
 }

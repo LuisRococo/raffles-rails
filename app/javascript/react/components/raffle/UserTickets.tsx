@@ -1,8 +1,9 @@
 import React from "react";
+import { IRaffleTickets } from "../../interfaces/raffleInterfaces";
 import UserTicket from "./UserTicket";
 
 interface Props {
-  numbers: number[];
+  numbers: IRaffleTickets[];
   removeNumber: (number: number) => void;
 }
 

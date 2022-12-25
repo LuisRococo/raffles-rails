@@ -31,10 +31,16 @@ function TicketsContainer({ raffleId }: Props) {
 
   function addUserTicket(numberToAdd: IRaffleTickets) {
     if (numberToAdd.status === 0) {
-      if (!isTicketAlreadySelected(numberToAdd)) {
-        setUserTickets([...userTickets, numberToAdd]);
-      }
+      setUserTickets([...userTickets, numberToAdd]);
     }
+  }
+
+  function removeUserTicket(numberToRemove: IRaffleTickets) {
+    setUserTickets(
+      userTickets.filter((ticket) => {
+        return ticket.number !== numberToRemove.number;
+      })
+    );
   }
 
   function handleUserContainerClick(event: any) {
@@ -49,7 +55,11 @@ function TicketsContainer({ raffleId }: Props) {
     );
 
     if (clickedNumber) {
-      addUserTicket(clickedNumber);
+      if (isTicketAlreadySelected(clickedNumber)) {
+        removeUserTicket(clickedNumber);
+      } else {
+        addUserTicket(clickedNumber);
+      }
     }
   }
 

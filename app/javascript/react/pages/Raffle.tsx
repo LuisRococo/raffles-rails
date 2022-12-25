@@ -40,7 +40,7 @@ function Raffle() {
       const tickets: RaffleTicketsResponse[] = await fetchRaffleTickets(
         +raffleId,
         1,
-        100
+        200
       );
       const formattedTickets = formatResponseTickets(tickets);
       setTickets(formattedTickets);

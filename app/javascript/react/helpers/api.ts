@@ -23,3 +23,11 @@ export async function fetchRaffleTickets(
 
   return res as unknown as RaffleTicketsResponse[];
 }
+
+export async function fetchRaffle(raffleId: number) {
+  let res: any = await fetch(`/api/raffles/${raffleId}`);
+  res = await res.json();
+
+  res = res.raffle as unknown as RaffleResponse;
+  return res;
+}

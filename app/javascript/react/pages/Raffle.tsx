@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import UserTickets from "../components/raffle/UserTickets";
-import { fetchRaffleTickets } from "../helpers/api";
+import { fetchRaffle, fetchRaffleTickets } from "../helpers/api";
 import { formatNumber } from "../helpers/helpers";
-import { RaffleTicketsResponse } from "../interfaces/apiInterfaces";
+import {
+  RaffleResponse,
+  RaffleTicketsResponse,
+} from "../interfaces/apiInterfaces";
 import { IRaffleTickets } from "../interfaces/raffleInterfaces";
 
 function Raffle() {
   const [userTickets, setUserTickets] = useState<IRaffleTickets[]>([]);
   const [tickets, setTickets] = useState<IRaffleTickets[]>([]);
+  const [raffle, setRaffle] = useState<RaffleResponse>();
   let { id: raffleId } = useParams();
 
   function handleRemoveTicket(numberToDelete: number) {
@@ -43,8 +47,15 @@ function Raffle() {
     }
   }
 
+  async function getRaffleInfo() {
+    if (!raffleId) return;
+    const raffleData: RaffleResponse = await fetchRaffle(+raffleId);
+    setRaffle(raffleData);
+  }
+
   useEffect(() => {
     getTickets();
+    getRaffleInfo();
   }, []);
 
   return (
@@ -57,7 +68,8 @@ function Raffle() {
               src="/assets/trophy.png"
               alt="trophy"
             />
-            <h2 className="section-header">Grab your tickets</h2>
+            <h2 className="section-header mb-2">Grab your tickets</h2>
+            <p className="h5">{raffle?.title}</p>
           </div>
 
           <UserTickets
@@ -77,7 +89,11 @@ function Raffle() {
 
           <div className="tickets-container">
             {tickets.map((ticket) => {
-              return <div className="ticket">{ticket.formatted}</div>;
+              return (
+                <div key={ticket.number} className="ticket">
+                  {ticket.formatted}
+                </div>
+              );
             })}
           </div>
         </div>

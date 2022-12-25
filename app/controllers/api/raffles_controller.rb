@@ -3,6 +3,10 @@ class Api::RafflesController < ApplicationController
         @raffles = Raffle.all
     end
 
+    def show
+        @raffle = Raffle.find(params[:id])
+    end
+
     def tickets
         per_page = 100
         per_page = params[:limit] if params[:limit]

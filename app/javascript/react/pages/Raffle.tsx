@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import UserTickets from "../components/raffle/UserTickets";
-import { fetchRaffle, fetchRaffleTickets } from "../helpers/api";
-import { formatNumber } from "../helpers/helpers";
+import { fetchRaffle } from "../helpers/api";
+import useTicketGrid from "../hooks/TicketGridHook";
 import {
   RaffleResponse,
   RaffleTicketsResponse,
@@ -11,40 +11,15 @@ import { IRaffleTickets } from "../interfaces/raffleInterfaces";
 
 function Raffle() {
   const [userTickets, setUserTickets] = useState<IRaffleTickets[]>([]);
-  const [tickets, setTickets] = useState<IRaffleTickets[]>([]);
   const [raffle, setRaffle] = useState<RaffleResponse>();
   let { id: raffleId } = useParams();
+  if (!raffleId) raffleId = "";
+  const { gridTickets, next, previous } = useTicketGrid(+raffleId, 200);
 
   function handleRemoveTicket(numberToDelete: number) {
     let tickets = [...userTickets];
     tickets = tickets.filter((number) => number.number !== numberToDelete);
     setUserTickets(tickets);
-  }
-
-  function formatResponseTickets(
-    tickets: RaffleTicketsResponse[]
-  ): IRaffleTickets[] {
-    let formattedTickets: IRaffleTickets[] = [];
-    formattedTickets = tickets.map((ticket) => {
-      return {
-        number: ticket.number,
-        status: ticket.status,
-        formatted: formatNumber(ticket.number),
-      };
-    });
-    return formattedTickets;
-  }
-
-  async function getTickets() {
-    if (raffleId) {
-      const tickets: RaffleTicketsResponse[] = await fetchRaffleTickets(
-        +raffleId,
-        1,
-        200
-      );
-      const formattedTickets = formatResponseTickets(tickets);
-      setTickets(formattedTickets);
-    }
   }
 
   async function getRaffleInfo() {
@@ -53,8 +28,12 @@ function Raffle() {
     setRaffle(raffleData);
   }
 
+  function changeGrid(advance: boolean) {
+    if (advance) next();
+    else previous();
+  }
+
   useEffect(() => {
-    getTickets();
     getRaffleInfo();
   }, []);
 
@@ -87,14 +66,40 @@ function Raffle() {
           </p>
           <hr className="my-4" />
 
-          <div className="tickets-container">
-            {tickets.map((ticket) => {
-              return (
-                <div key={ticket.number} className="ticket">
-                  {ticket.formatted}
+          <div>
+            <div className="d-flex justify-content-end mb-3">
+              <button
+                onClick={() => changeGrid(false)}
+                className="btn btn-primary btn-lg"
+              >
+                {"<"}
+              </button>
+              <button
+                onClick={() => changeGrid(true)}
+                className="btn btn-primary btn-lg ms-1"
+              >
+                {">"}
+              </button>
+            </div>
+            <div className="tickets-container">
+              {gridTickets.length === 0 && (
+                <div>
+                  <p className="m-0 p-0">
+                    <strong>There are no tickets</strong>
+                  </p>
+                  <p className="m-0 p-0 text-muted fst-italic">
+                    Try usign the pagination to return
+                  </p>
                 </div>
-              );
-            })}
+              )}
+              {gridTickets.map((ticket) => {
+                return (
+                  <div key={ticket.number} className="ticket">
+                    {ticket.formatted}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

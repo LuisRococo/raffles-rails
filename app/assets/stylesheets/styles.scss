@@ -67,14 +67,19 @@
     overflow-y: auto;
 }
 
+/* Ticket */
+
+.ticket-wrapper {
+    position: relative;
+    margin: 4px 2px;
+}
+
 .ticket {
     padding: 7px 10px;
     background-color: #d9dbd9;
     color: rgb(95, 94, 94);
     font-size: 1em;
     border-radius: 10px;
-    margin: 4px 2px;
-    cursor: pointer;
     min-width: 70px;
     text-align: center;
 }
@@ -88,4 +93,22 @@
 .ticket-selected {
     background-color: rgb(137, 133, 133);
     color: #fff;
+}
+
+/* ticket cover */
+
+.ticket-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.ticket-cover:hover {
+    background-color: #6f716f5c;
+}
+
+.ticket-cover:active {
+    background-color: #2323235c;
 }

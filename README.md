@@ -1,24 +1,11 @@
-# README
+# Raffles With Rails
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Ruby_logo.svg/2048px-Ruby_logo.svg.png" alt="ruby logo" width="180px" style="margin: 20px 0 20px;" />
 
-Things you may want to cover:
+Raffles Website.  
+Practice full-stack project made using Ruby on Rails and react.
 
-* Ruby version
+## Other technologies / frameworks
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Bootstrap
+- Typescript

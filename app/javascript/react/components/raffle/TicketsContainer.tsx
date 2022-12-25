@@ -31,16 +31,14 @@ function TicketsContainer({ raffleId }: Props) {
       <div className="my-5 text-center">
         <h2 className="section-header mb-3">Grid</h2>
         <p className="m-0 p-0 mb-1">You can select * numbers</p>
-        <p className="m-0 p-0 mb-1">
+        <p className="m-0 p-0 mb-4">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit,
           voluptatem!
         </p>
 
         <UserTickets removeNumber={handleRemoveTicket} numbers={userTickets} />
 
-        <hr className="my-4" />
-
-        <div>
+        <div className="mt-4">
           <div className="d-flex justify-content-between mb-3">
             <div className="me-3 text-start">
               <p className="m-0 p-0">

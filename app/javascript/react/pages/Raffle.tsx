@@ -4,16 +4,16 @@ import TicketsContainer from "../components/raffle/TicketsContainer";
 import UserTickets from "../components/raffle/UserTickets";
 import { fetchRaffle } from "../helpers/api";
 import useTicketGrid from "../hooks/TicketGridHook";
-import { RaffleResponse } from "../interfaces/apiInterfaces";
+import { IRaffleResponse } from "../interfaces/apiInterfaces";
 import { IRaffleTickets } from "../interfaces/raffleInterfaces";
 
 function Raffle() {
-  const [raffle, setRaffle] = useState<RaffleResponse>();
+  const [raffle, setRaffle] = useState<IRaffleResponse>();
   let { id: raffleId } = useParams();
 
   async function getRaffleInfo() {
     if (!raffleId) return;
-    const raffleData: RaffleResponse = await fetchRaffle(+raffleId);
+    const raffleData: IRaffleResponse = await fetchRaffle(+raffleId);
     setRaffle(raffleData);
   }
 
@@ -35,6 +35,8 @@ function Raffle() {
             <p className="h5">{raffle?.title}</p>
           </div>
         </div>
+
+        <hr className="section-hr" />
 
         {raffle && <TicketsContainer raffleId={raffle?.id} />}
       </div>

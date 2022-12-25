@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { RaffleResponse } from "../../interfaces/apiInterfaces";
+import { IRaffleResponse } from "../../interfaces/apiInterfaces";
 import { routes } from "../../routes";
 
 interface Props {
-  raffle: RaffleResponse;
+  raffle: IRaffleResponse;
 }
 
 function RaffleCard({ raffle }: Props) {

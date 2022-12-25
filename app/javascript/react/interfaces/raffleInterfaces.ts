@@ -1,5 +1,5 @@
-import { RaffleTicketsResponse } from "./apiInterfaces";
+import { IRaffleTicketsResponse } from "./apiInterfaces";
 
-export interface IRaffleTickets extends RaffleTicketsResponse {
+export interface IRaffleTickets extends IRaffleTicketsResponse {
   formatted: string;
 }

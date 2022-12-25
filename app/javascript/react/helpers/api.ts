@@ -1,13 +1,13 @@
 import {
-  RaffleResponse,
-  RaffleTicketsResponse,
+  IRaffleResponse,
+  IRaffleTicketsResponse,
 } from "../interfaces/apiInterfaces";
 
 export async function fetchRaffles() {
   let res = await fetch("/api/raffles.json");
   res = await res.json();
 
-  return res as unknown as RaffleResponse[];
+  return res as unknown as IRaffleResponse[];
 }
 
 export async function fetchRaffleTickets(
@@ -21,13 +21,13 @@ export async function fetchRaffleTickets(
   let res = await fetch(url);
   res = await res.json();
 
-  return res as unknown as RaffleTicketsResponse[];
+  return res as unknown as IRaffleTicketsResponse[];
 }
 
 export async function fetchRaffle(raffleId: number) {
   let res: any = await fetch(`/api/raffles/${raffleId}`);
   res = await res.json();
 
-  res = res.raffle as unknown as RaffleResponse;
+  res = res.raffle as unknown as IRaffleResponse;
   return res;
 }

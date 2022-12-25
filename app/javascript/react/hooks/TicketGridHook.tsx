@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchRaffleTickets } from "../helpers/api";
 import { formatNumber } from "../helpers/helpers";
-import { RaffleTicketsResponse } from "../interfaces/apiInterfaces";
+import { IRaffleTicketsResponse } from "../interfaces/apiInterfaces";
 import { IRaffleTickets } from "../interfaces/raffleInterfaces";
 
 function useTicketGrid(raffleId: number, limit: number) {
@@ -9,7 +9,7 @@ function useTicketGrid(raffleId: number, limit: number) {
   const [page, setPage] = useState(1);
 
   function formatResponseTickets(
-    tickets: RaffleTicketsResponse[]
+    tickets: IRaffleTicketsResponse[]
   ): IRaffleTickets[] {
     let formattedTickets: IRaffleTickets[] = [];
     formattedTickets = tickets.map((ticket) => {
@@ -23,7 +23,7 @@ function useTicketGrid(raffleId: number, limit: number) {
   }
 
   async function getGridTickets() {
-    const tickets: RaffleTicketsResponse[] = await fetchRaffleTickets(
+    const tickets: IRaffleTicketsResponse[] = await fetchRaffleTickets(
       +raffleId,
       page,
       limit

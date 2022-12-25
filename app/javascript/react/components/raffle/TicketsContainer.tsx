@@ -28,7 +28,7 @@ function TicketsContainer({ raffleId }: Props) {
 
   function handleUserContainerClick(event: any) {
     const clickedElement = event.target;
-    if (clickedElement.className !== "ticket") return;
+    if (!clickedElement.className.includes("ticket")) return;
 
     const formattedNumber = clickedElement.textContent;
     const clickedNumber: IRaffleTickets | undefined = gridTickets.find(
@@ -37,7 +37,7 @@ function TicketsContainer({ raffleId }: Props) {
       }
     );
 
-    if (clickedNumber) {
+    if (clickedNumber && clickedNumber.status === 0) {
       setUserTickets([...new Set([...userTickets, clickedNumber])]);
     }
   }

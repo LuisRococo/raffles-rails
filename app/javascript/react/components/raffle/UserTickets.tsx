@@ -29,7 +29,13 @@ function UserTickets({ numbers, removeNumber }: Props) {
             )}
 
             {numbers.map((number) => {
-              return <UserTicket number={number} onClick={handleTicketClick} />;
+              return (
+                <UserTicket
+                  key={number.number}
+                  number={number}
+                  onClick={handleTicketClick}
+                />
+              );
             })}
           </div>
         </div>

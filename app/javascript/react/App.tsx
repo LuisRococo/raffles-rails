@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/common/Footer";
 import Raffle from "./pages/Raffle";
-import useResetScroll from "./components/common/ResetScroll";
 import ResetScroll from "./components/common/ResetScroll";
 
 function App() {

@@ -15,15 +15,42 @@ function TicketsContainer({ raffleId }: Props) {
     gridFetchLimit
   );
 
-  function handleRemoveTicket(numberToDelete: number) {
+  function handleRemoveUserTicket(numberToDelete: number) {
     let tickets = [...userTickets];
     tickets = tickets.filter((number) => number.number !== numberToDelete);
     setUserTickets(tickets);
   }
 
+  function handleAddUserTicket(numberToAdd: IRaffleTickets) {
+    const newTickets = [...new Set([...userTickets, numberToAdd])];
+    setUserTickets(newTickets);
+  }
+
+  function handleUserContainerClick(event: any) {
+    const clickedElement = event.target;
+    if (clickedElement.className !== "ticket") return;
+
+    const formattedNumber = clickedElement.textContent;
+    const clickedNumber: IRaffleTickets | undefined = gridTickets.find(
+      (element) => {
+        return element.formatted === formattedNumber;
+      }
+    );
+
+    if (clickedNumber) {
+      setUserTickets([...new Set([...userTickets, clickedNumber])]);
+    }
+  }
+
   function changeGrid(advance: boolean) {
     if (advance) next();
     else previous();
+  }
+
+  function getTicketClass(ticket: IRaffleTickets) {
+    let classes = "ticket";
+    if (ticket.status !== 0) classes += " ticket-owned";
+    return classes;
   }
 
   return (
@@ -36,7 +63,10 @@ function TicketsContainer({ raffleId }: Props) {
           voluptatem!
         </p>
 
-        <UserTickets removeNumber={handleRemoveTicket} numbers={userTickets} />
+        <UserTickets
+          removeNumber={handleRemoveUserTicket}
+          numbers={userTickets}
+        />
 
         <div className="mt-4">
           <div className="d-flex justify-content-between mb-3">
@@ -64,7 +94,7 @@ function TicketsContainer({ raffleId }: Props) {
               </button>
             </div>
           </div>
-          <div className="tickets-container">
+          <div className="tickets-container" onClick={handleUserContainerClick}>
             {gridTickets.length === 0 && (
               <div>
                 <p className="m-0 p-0">
@@ -77,7 +107,7 @@ function TicketsContainer({ raffleId }: Props) {
             )}
             {gridTickets.map((ticket) => {
               return (
-                <div key={ticket.number} className="ticket">
+                <div key={ticket.number} className={getTicketClass(ticket)}>
                   {ticket.formatted}
                 </div>
               );

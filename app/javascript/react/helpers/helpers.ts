@@ -1,3 +1,5 @@
+import { IRaffleTickets } from "../interfaces/raffleInterfaces";
+
 export function formatNumber(number: number, length: number = 5) {
   const actualNumberLength = number.toString().length;
   const zerosToAdd = length - actualNumberLength;
@@ -10,4 +12,8 @@ export function formatNumber(number: number, length: number = 5) {
   }
 
   return formattedNumber;
+}
+
+export function ticketsObjToNumberArray(tickets: IRaffleTickets[]) {
+  return tickets.map((ticket) => ticket.number);
 }

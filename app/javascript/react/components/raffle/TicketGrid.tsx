@@ -1,24 +1,36 @@
 import React, { useState } from "react";
 import useTicketGrid from "../../hooks/TicketGridHook";
 import { IRaffleTickets } from "../../interfaces/raffleInterfaces";
+import ActionConfirmation from "./ActionConfirmation";
+import UserForm from "./UserForm";
 import UserTickets from "./UserTickets";
 
 interface Props {
   raffleId: number;
 }
 
-function TicketsContainer({ raffleId }: Props) {
+function TicketGrid({ raffleId }: Props) {
   const gridFetchLimit = 200;
   const [userTickets, setUserTickets] = useState<IRaffleTickets[]>([]);
+  const [formVisiviliy, setFormVisivility] = useState(false);
+  const [displayActionConfirmation, setDisplayActionConfirmation] =
+    useState(false);
+  const [actionConfAddStatus, setActionConfAddStatus] = useState(false);
   const { page, gridTickets, next, previous } = useTicketGrid(
     raffleId,
     gridFetchLimit
   );
 
+  function showActionConfirmation(addTicketAction: boolean) {
+    setActionConfAddStatus(addTicketAction);
+    setDisplayActionConfirmation(true);
+  }
+
   function handleRemoveUserTicket(numberToDelete: number) {
     let tickets = [...userTickets];
     tickets = tickets.filter((number) => number.number !== numberToDelete);
     setUserTickets(tickets);
+    showActionConfirmation(false);
   }
 
   function isTicketAlreadySelected(ticketToCheck: IRaffleTickets) {
@@ -31,6 +43,7 @@ function TicketsContainer({ raffleId }: Props) {
 
   function addUserTicket(numberToAdd: IRaffleTickets) {
     if (numberToAdd.status === 0) {
+      showActionConfirmation(true);
       setUserTickets([...userTickets, numberToAdd]);
     }
   }
@@ -41,6 +54,7 @@ function TicketsContainer({ raffleId }: Props) {
         return ticket.number !== numberToRemove.number;
       })
     );
+    showActionConfirmation(false);
   }
 
   function handleUserContainerClick(event: any) {
@@ -84,6 +98,19 @@ function TicketsContainer({ raffleId }: Props) {
 
   return (
     <div>
+      <UserForm
+        idRaffle={raffleId}
+        numbers={userTickets}
+        visible={formVisiviliy}
+        onCloseBtnClick={() => {
+          setFormVisivility(false);
+        }}
+      />
+      <ActionConfirmation
+        addTicketState={actionConfAddStatus}
+        visivility={displayActionConfirmation}
+        onVisivilityTimerOut={() => setDisplayActionConfirmation(false)}
+      />
       <div className="my-5 text-center">
         <h2 className="section-header mb-3">Grid</h2>
         <p className="m-0 p-0 mb-1">You can select * numbers</p>
@@ -95,6 +122,9 @@ function TicketsContainer({ raffleId }: Props) {
         <UserTickets
           removeNumber={handleRemoveUserTicket}
           numbers={userTickets}
+          onClickSubmit={() => {
+            setFormVisivility(true);
+          }}
         />
 
         <div className="mt-4">
@@ -151,4 +181,4 @@ function TicketsContainer({ raffleId }: Props) {
   );
 }
 
-export default TicketsContainer;
+export default TicketGrid;

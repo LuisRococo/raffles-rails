@@ -15,18 +15,22 @@ function TicketGrid({ raffleId }: Props) {
   const [formVisiviliy, setFormVisivility] = useState(false);
   const [displayActionConfirmation, setDisplayActionConfirmation] =
     useState(false);
-  const [confirmationAdd, setConfirmationAdd] = useState(false);
+  const [actionConfAddStatus, setActionConfAddStatus] = useState(false);
   const { page, gridTickets, next, previous } = useTicketGrid(
     raffleId,
     gridFetchLimit
   );
 
+  function showActionConfirmation(addTicketAction: boolean) {
+    setActionConfAddStatus(addTicketAction);
+    setDisplayActionConfirmation(true);
+  }
+
   function handleRemoveUserTicket(numberToDelete: number) {
     let tickets = [...userTickets];
     tickets = tickets.filter((number) => number.number !== numberToDelete);
     setUserTickets(tickets);
-    setConfirmationAdd(false);
-    setDisplayActionConfirmation(true);
+    showActionConfirmation(false);
   }
 
   function isTicketAlreadySelected(ticketToCheck: IRaffleTickets) {
@@ -39,8 +43,7 @@ function TicketGrid({ raffleId }: Props) {
 
   function addUserTicket(numberToAdd: IRaffleTickets) {
     if (numberToAdd.status === 0) {
-      setConfirmationAdd(true);
-      setDisplayActionConfirmation(true);
+      showActionConfirmation(true);
       setUserTickets([...userTickets, numberToAdd]);
     }
   }
@@ -51,8 +54,7 @@ function TicketGrid({ raffleId }: Props) {
         return ticket.number !== numberToRemove.number;
       })
     );
-    setConfirmationAdd(false);
-    setDisplayActionConfirmation(true);
+    showActionConfirmation(false);
   }
 
   function handleUserContainerClick(event: any) {
@@ -105,8 +107,8 @@ function TicketGrid({ raffleId }: Props) {
         }}
       />
       <ActionConfirmation
-        added={confirmationAdd}
-        display={displayActionConfirmation}
+        addTicketState={actionConfAddStatus}
+        visivility={displayActionConfirmation}
         onVisivilityTimerOut={() => setDisplayActionConfirmation(false)}
       />
       <div className="my-5 text-center">

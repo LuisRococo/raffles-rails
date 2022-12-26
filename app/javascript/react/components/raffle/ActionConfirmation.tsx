@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 
 interface Props {
-  display: boolean;
-  added: boolean;
+  visivility: boolean;
+  addTicketState: boolean;
   onVisivilityTimerOut: () => void;
 }
 
-function ActionConfirmation({ display, added, onVisivilityTimerOut }: Props) {
-  const [timeOutHide, setTimeOutHide] = useState<any>(null);
+function ActionConfirmation({
+  visivility: display,
+  addTicketState: added,
+  onVisivilityTimerOut,
+}: Props) {
+  const [timeOutToHide, setTimeOutToHide] = useState<any>(null);
 
   function getImage() {
     return added ? "/assets/paloma.png" : "/assets/cross.png";
@@ -19,12 +23,12 @@ function ActionConfirmation({ display, added, onVisivilityTimerOut }: Props) {
 
   useEffect(() => {
     if (display) {
-      if (timeOutHide) {
-        clearTimeout(timeOutHide);
-        setTimeOutHide(null);
+      if (timeOutToHide) {
+        clearTimeout(timeOutToHide);
+        setTimeOutToHide(null);
       }
 
-      setTimeOutHide(
+      setTimeOutToHide(
         setTimeout(() => {
           onVisivilityTimerOut();
         }, 1500)

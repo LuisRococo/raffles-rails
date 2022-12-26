@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useTicketGrid from "../../hooks/TicketGridHook";
 import { IRaffleTickets } from "../../interfaces/raffleInterfaces";
+import ActionConfirmation from "./ActionConfirmation";
 import UserForm from "./UserForm";
 import UserTickets from "./UserTickets";
 
@@ -12,6 +13,9 @@ function TicketGrid({ raffleId }: Props) {
   const gridFetchLimit = 200;
   const [userTickets, setUserTickets] = useState<IRaffleTickets[]>([]);
   const [formVisiviliy, setFormVisivility] = useState(false);
+  const [displayActionConfirmation, setDisplayActionConfirmation] =
+    useState(false);
+  const [confirmationAdd, setConfirmationAdd] = useState(false);
   const { page, gridTickets, next, previous } = useTicketGrid(
     raffleId,
     gridFetchLimit
@@ -21,6 +25,8 @@ function TicketGrid({ raffleId }: Props) {
     let tickets = [...userTickets];
     tickets = tickets.filter((number) => number.number !== numberToDelete);
     setUserTickets(tickets);
+    setConfirmationAdd(false);
+    setDisplayActionConfirmation(true);
   }
 
   function isTicketAlreadySelected(ticketToCheck: IRaffleTickets) {
@@ -33,6 +39,8 @@ function TicketGrid({ raffleId }: Props) {
 
   function addUserTicket(numberToAdd: IRaffleTickets) {
     if (numberToAdd.status === 0) {
+      setConfirmationAdd(true);
+      setDisplayActionConfirmation(true);
       setUserTickets([...userTickets, numberToAdd]);
     }
   }
@@ -43,6 +51,8 @@ function TicketGrid({ raffleId }: Props) {
         return ticket.number !== numberToRemove.number;
       })
     );
+    setConfirmationAdd(false);
+    setDisplayActionConfirmation(true);
   }
 
   function handleUserContainerClick(event: any) {
@@ -93,6 +103,11 @@ function TicketGrid({ raffleId }: Props) {
         onCloseBtnClick={() => {
           setFormVisivility(false);
         }}
+      />
+      <ActionConfirmation
+        added={confirmationAdd}
+        display={displayActionConfirmation}
+        onVisivilityTimerOut={() => setDisplayActionConfirmation(false)}
       />
       <div className="my-5 text-center">
         <h2 className="section-header mb-3">Grid</h2>

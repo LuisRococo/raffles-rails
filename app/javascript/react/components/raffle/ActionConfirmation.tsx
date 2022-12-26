@@ -66,7 +66,7 @@ const styles = {
     width: "180px",
     height: "210px",
     backgroundColor: "#ededed",
-    marginTop: "100px",
+    marginTop: "30px",
     borderRadius: "10px",
     padding: "25px 20px",
     textAlign: "center" as any,

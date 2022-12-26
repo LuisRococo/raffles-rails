@@ -45,9 +45,9 @@ function TicketsContainer({ raffleId }: Props) {
 
   function handleUserContainerClick(event: any) {
     const clickedElement = event.target;
-    if (!clickedElement.className.includes("ticket-cover")) return;
+    if (!clickedElement.className.includes("ticket")) return;
 
-    const formattedNumber = clickedElement.parentElement.textContent;
+    const formattedNumber = clickedElement.textContent;
     const clickedNumber: IRaffleTickets | undefined = gridTickets.find(
       (element) => {
         return element.formatted === formattedNumber;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import TicketsContainer from "../components/raffle/TicketsContainer";
+import UserForm from "../components/raffle/UserForm";
 import UserTickets from "../components/raffle/UserTickets";
 import { fetchRaffle } from "../helpers/api";
 import useTicketGrid from "../hooks/TicketGridHook";

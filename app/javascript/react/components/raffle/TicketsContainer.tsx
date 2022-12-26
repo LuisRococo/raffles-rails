@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { ticketsObjToNumberArray } from "../../helpers/helpers";
 import useTicketGrid from "../../hooks/TicketGridHook";
 import { IRaffleTickets } from "../../interfaces/raffleInterfaces";
+import UserForm from "./UserForm";
 import UserTickets from "./UserTickets";
 
 interface Props {
@@ -10,6 +12,7 @@ interface Props {
 function TicketsContainer({ raffleId }: Props) {
   const gridFetchLimit = 200;
   const [userTickets, setUserTickets] = useState<IRaffleTickets[]>([]);
+  const [formVisiviliy, setFormVisivility] = useState(false);
   const { page, gridTickets, next, previous } = useTicketGrid(
     raffleId,
     gridFetchLimit
@@ -84,6 +87,14 @@ function TicketsContainer({ raffleId }: Props) {
 
   return (
     <div>
+      <UserForm
+        idRaffle={raffleId}
+        numbers={userTickets}
+        visible={formVisiviliy}
+        onCloseBtnClick={() => {
+          setFormVisivility(false);
+        }}
+      />
       <div className="my-5 text-center">
         <h2 className="section-header mb-3">Grid</h2>
         <p className="m-0 p-0 mb-1">You can select * numbers</p>
@@ -95,6 +106,9 @@ function TicketsContainer({ raffleId }: Props) {
         <UserTickets
           removeNumber={handleRemoveUserTicket}
           numbers={userTickets}
+          onClickSubmit={() => {
+            setFormVisivility(true);
+          }}
         />
 
         <div className="mt-4">

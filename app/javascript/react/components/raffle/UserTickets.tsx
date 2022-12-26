@@ -5,9 +5,10 @@ import UserTicket from "./UserTicket";
 interface Props {
   numbers: IRaffleTickets[];
   removeNumber: (number: number) => void;
+  onClickSubmit: () => void;
 }
 
-function UserTickets({ numbers, removeNumber }: Props) {
+function UserTickets({ numbers, removeNumber, onClickSubmit }: Props) {
   function handleTicketClick(number: number) {
     removeNumber(number);
   }
@@ -38,6 +39,14 @@ function UserTickets({ numbers, removeNumber }: Props) {
               );
             })}
           </div>
+          {numbers.length !== 0 && (
+            <button
+              onClick={() => onClickSubmit()}
+              className="btn btn-primary mt-3"
+            >
+              Submit
+            </button>
+          )}
         </div>
       </div>
     </div>

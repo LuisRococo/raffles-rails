@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { ticketsObjToNumberArray } from "../../helpers/helpers";
 import useTicketGrid from "../../hooks/TicketGridHook";
 import { IRaffleTickets } from "../../interfaces/raffleInterfaces";
 import UserForm from "./UserForm";
@@ -9,7 +8,7 @@ interface Props {
   raffleId: number;
 }
 
-function TicketsContainer({ raffleId }: Props) {
+function TicketGrid({ raffleId }: Props) {
   const gridFetchLimit = 200;
   const [userTickets, setUserTickets] = useState<IRaffleTickets[]>([]);
   const [formVisiviliy, setFormVisivility] = useState(false);
@@ -165,4 +164,4 @@ function TicketsContainer({ raffleId }: Props) {
   );
 }
 
-export default TicketsContainer;
+export default TicketGrid;

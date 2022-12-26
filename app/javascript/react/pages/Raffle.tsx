@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import TicketsContainer from "../components/raffle/TicketsContainer";
+import TicketGrid from "../components/raffle/TicketGrid";
 import UserForm from "../components/raffle/UserForm";
 import UserTickets from "../components/raffle/UserTickets";
 import { fetchRaffle } from "../helpers/api";
@@ -39,7 +39,7 @@ function Raffle() {
 
         <hr className="section-hr" />
 
-        {raffle && <TicketsContainer raffleId={raffle?.id} />}
+        {raffle && <TicketGrid raffleId={raffle?.id} />}
       </div>
     </div>
   );

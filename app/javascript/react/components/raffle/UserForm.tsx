@@ -37,7 +37,14 @@ function UserForm({
               <div className="col-md-7">
                 <div className="card">
                   <div className="card-body">
-                    <h4 className="text-center">Add your info</h4>
+                    <div className="d-flex justify-content-center">
+                      <img
+                        style={styles.img}
+                        src="/assets/avatar.png"
+                        alt="avatar"
+                      />
+                    </div>
+                    <h4 className="text-center mt-2">Add your info</h4>
                     <p className="text-center pb-0 mb-1">Your tickets</p>
                     <div className="d-flex justify-content-center flex-wrap">
                       {numbers.map((number) => {
@@ -145,6 +152,9 @@ const styles = {
     borderRadius: "10px",
     minWidth: "70px",
     textAlign: "center" as any,
+  },
+  img: {
+    width: "130px",
   },
 };
 

@@ -6,6 +6,7 @@ import NotFound from "./pages/NotFound";
 import Footer from "./components/common/Footer";
 import Raffle from "./pages/Raffle";
 import ResetScroll from "./components/common/ResetScroll";
+import PurchaseInfo from "./pages/PurchaseInfo";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/raffle/:id" element={<Raffle />} />
+          <Route path="/purchase-info" element={<PurchaseInfo />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 

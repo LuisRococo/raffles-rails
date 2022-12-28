@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { postTakeTickets } from "../../helpers/api";
 import { IRaffleTickets } from "../../interfaces/raffleInterfaces";
+import { ticketsObjToNumberArray } from "../../helpers/helpers";
 
 interface Props {
   idRaffle: number;
@@ -26,6 +28,16 @@ function UserForm({
     const data: any = { ...userData };
     data[name] = value;
     setUserData(data);
+  }
+
+  async function handleSubmit(event: React.SyntheticEvent) {
+    event.preventDefault();
+    await postTakeTickets(idRaffle, ticketsObjToNumberArray(numbers), {
+      cellphone: userData.cellphone,
+      last_name: userData.lastName,
+      first_name: userData.firstName,
+      state: userData.state,
+    });
   }
 
   return (
@@ -58,7 +70,7 @@ function UserForm({
 
                     <hr />
 
-                    <form action="">
+                    <form onSubmit={handleSubmit} action="">
                       <div className="container">
                         <div className="row">
                           <div className="mb-3 col-md-6">

@@ -1,0 +1,2 @@
+class FolioMetadatum < ApplicationRecord
+end

@@ -1,6 +1,7 @@
 import {
   IRaffleResponse,
   IRaffleTicketsResponse,
+  IUserFormInfo,
 } from "../interfaces/apiInterfaces";
 
 export async function fetchRaffles() {
@@ -29,5 +30,27 @@ export async function fetchRaffle(raffleId: number) {
   res = await res.json();
 
   res = res.raffle as unknown as IRaffleResponse;
+  return res;
+}
+
+export async function postTakeTickets(
+  raffleId: number,
+  tickets: number[],
+  userInfo: IUserFormInfo
+) {
+  const data = {
+    tickets,
+    userInfo,
+  };
+
+  let res: any = await fetch(`/api/raffles/${raffleId}/take-tickets`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ data }),
+  });
+
+  res = res.raffle as unknown;
   return res;
 }

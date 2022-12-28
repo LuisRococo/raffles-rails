@@ -16,7 +16,7 @@ function TicketGrid({ raffleId }: Props) {
   const [displayActionConfirmation, setDisplayActionConfirmation] =
     useState(false);
   const [actionConfAddStatus, setActionConfAddStatus] = useState(false);
-  const { page, gridTickets, next, previous } = useTicketGrid(
+  const { page, gridTickets, next, previous, fetchGrid } = useTicketGrid(
     raffleId,
     gridFetchLimit
   );
@@ -103,6 +103,11 @@ function TicketGrid({ raffleId }: Props) {
         numbers={userTickets}
         visible={formVisiviliy}
         onCloseBtnClick={() => {
+          setFormVisivility(false);
+        }}
+        onTicketReset={() => {
+          fetchGrid();
+          setUserTickets([]);
           setFormVisivility(false);
         }}
       />

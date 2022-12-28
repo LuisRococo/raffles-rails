@@ -22,6 +22,10 @@ function useTicketGrid(raffleId: number, limit: number) {
     return formattedTickets;
   }
 
+  async function fetchGrid() {
+    getGridTickets();
+  }
+
   async function getGridTickets() {
     const tickets: IRaffleTicketsResponse[] = await fetchRaffleTickets(
       +raffleId,
@@ -51,7 +55,7 @@ function useTicketGrid(raffleId: number, limit: number) {
     getGridTickets();
   }, [page]);
 
-  return { gridTickets, next, previous, page };
+  return { gridTickets, next, previous, page, fetchGrid };
 }
 
 export default useTicketGrid;

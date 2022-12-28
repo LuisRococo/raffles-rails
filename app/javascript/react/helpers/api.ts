@@ -2,6 +2,7 @@ import {
   IRaffleResponse,
   IRaffleTicketsResponse,
   IUserFormInfo,
+  IBasicResponse,
 } from "../interfaces/apiInterfaces";
 
 export async function fetchRaffles() {
@@ -51,6 +52,6 @@ export async function postTakeTickets(
     body: JSON.stringify({ data }),
   });
 
-  res = res.raffle as unknown;
-  return res;
+  res = await res.json();
+  return res as IBasicResponse;
 }

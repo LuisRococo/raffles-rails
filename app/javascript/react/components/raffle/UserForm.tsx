@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { postTakeTickets } from "../../helpers/api";
 import { IRaffleTickets } from "../../interfaces/raffleInterfaces";
 import { ticketsObjToNumberArray } from "../../helpers/helpers";
+import { ApiStatusEnum } from "../../interfaces/apiInterfaces";
+import { useNavigate } from "react-router-dom";
+import { routes } from "../../routes";
 
 interface Props {
   idRaffle: number;
   numbers: IRaffleTickets[];
   visible: boolean;
   onCloseBtnClick: () => void;
+  onTicketReset: () => void;
 }
 
 function UserForm({
@@ -15,6 +19,7 @@ function UserForm({
   numbers,
   onCloseBtnClick,
   visible = false,
+  onTicketReset,
 }: Props) {
   const [userData, setUserData] = useState({
     firstName: "",
@@ -22,6 +27,7 @@ function UserForm({
     cellphone: "",
     state: "",
   });
+  const navigate = useNavigate();
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     const { value, name } = event.target;
@@ -32,12 +38,23 @@ function UserForm({
 
   async function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    await postTakeTickets(idRaffle, ticketsObjToNumberArray(numbers), {
-      cellphone: userData.cellphone,
-      last_name: userData.lastName,
-      first_name: userData.firstName,
-      state: userData.state,
-    });
+    const response = await postTakeTickets(
+      idRaffle,
+      ticketsObjToNumberArray(numbers),
+      {
+        cellphone: userData.cellphone,
+        last_name: userData.lastName,
+        first_name: userData.firstName,
+        state: userData.state,
+      }
+    );
+
+    if (response.status === ApiStatusEnum.success) {
+      navigate(routes.purchaseInfo);
+    } else {
+      onTicketReset();
+      alert("There was an error, try with other tickets");
+    }
   }
 
   return (

@@ -1,4 +1,4 @@
-enum ApiStatusEnum {
+export enum ApiStatusEnum {
   success = "success",
   error = "error",
 }

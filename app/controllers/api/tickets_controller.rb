@@ -29,6 +29,6 @@ class Api::TicketsController < ApplicationController
             end
         end
 
-        render json: {status: 'success'}, status: 204
+        render json: {status: 'success'}, status: 200
     end
 end

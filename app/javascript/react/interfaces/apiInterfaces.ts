@@ -3,6 +3,13 @@ export enum ApiStatusEnum {
   error = "error",
 }
 
+export interface IBasicResponse {
+  status: ApiStatusEnum;
+  data: any;
+}
+
+// Specific responses
+
 export interface IRaffleResponse {
   id: number;
   title: string;
@@ -20,6 +27,11 @@ export interface IUserFormInfo {
   state: string;
 }
 
-export interface IBasicResponse {
-  status: ApiStatusEnum;
+export interface IPostUserTickets extends IBasicResponse {
+  data: null | {
+    folioNumber: number;
+    tickets: number[];
+    raffleTitle: string;
+    raffleId: number;
+  };
 }

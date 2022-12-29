@@ -3,6 +3,7 @@ import {
   IRaffleTicketsResponse,
   IUserFormInfo,
   IBasicResponse,
+  IPostUserTickets,
 } from "../interfaces/apiInterfaces";
 
 export async function fetchRaffles() {
@@ -53,5 +54,6 @@ export async function postTakeTickets(
   });
 
   res = await res.json();
-  return res as IBasicResponse;
+
+  return res as IPostUserTickets;
 }

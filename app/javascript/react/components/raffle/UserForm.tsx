@@ -11,7 +11,7 @@ interface Props {
   numbers: IRaffleTickets[];
   visible: boolean;
   onCloseBtnClick: () => void;
-  onTicketReset: () => void;
+  reloadGridTickets: () => void;
 }
 
 function UserForm({
@@ -19,7 +19,7 @@ function UserForm({
   numbers,
   onCloseBtnClick,
   visible = false,
-  onTicketReset,
+  reloadGridTickets,
 }: Props) {
   const [userData, setUserData] = useState({
     firstName: "",
@@ -52,7 +52,7 @@ function UserForm({
     if (response.status === ApiStatusEnum.success) {
       navigate(routes.purchaseInfo);
     } else {
-      onTicketReset();
+      reloadGridTickets();
       alert("There was an error, try with other tickets");
     }
   }

@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
 
 interface Props {
-  visivility: boolean;
-  addTicketState: boolean;
-  onVisivilityTimerOut: () => void;
+  componentVisible: boolean;
+  isTicketAdded: boolean;
+  turnOffVisibility: () => void;
 }
 
-function ActionConfirmation({
-  visivility: display,
-  addTicketState: added,
-  onVisivilityTimerOut,
+function TicketActionNotification({
+  componentVisible,
+  isTicketAdded,
+  turnOffVisibility,
 }: Props) {
   const [timeOutToHide, setTimeOutToHide] = useState<any>(null);
 
   function getImage() {
-    return added ? "/assets/paloma.png" : "/assets/cross.png";
+    return isTicketAdded ? "/assets/paloma.png" : "/assets/cross.png";
   }
 
   function getMessage() {
-    return added ? "Added" : "Removed";
+    return isTicketAdded ? "Added" : "Removed";
   }
 
   useEffect(() => {
-    if (display) {
+    if (componentVisible) {
       if (timeOutToHide) {
         clearTimeout(timeOutToHide);
         setTimeOutToHide(null);
@@ -30,15 +30,15 @@ function ActionConfirmation({
 
       setTimeOutToHide(
         setTimeout(() => {
-          onVisivilityTimerOut();
+          turnOffVisibility();
         }, 1500)
       );
     }
-  }, [display, added]);
+  }, [componentVisible, isTicketAdded]);
 
   return (
     <>
-      {display && (
+      {componentVisible && (
         <div style={styles.container}>
           <div style={styles.card}>
             <img style={styles.img} src={getImage()} alt="" />
@@ -87,4 +87,4 @@ const styles = {
   },
 };
 
-export default ActionConfirmation;
+export default TicketActionNotification;

@@ -28,7 +28,7 @@ export interface IUserFormInfo {
 }
 
 export interface IPostUserTickets extends IBasicResponse {
-  data: null | {
+  data: {
     folioNumber: number;
     tickets: number[];
     raffleTitle: string;

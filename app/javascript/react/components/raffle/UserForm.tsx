@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { postTakeTickets } from "../../helpers/api";
 import { IRaffleTickets } from "../../interfaces/raffleInterfaces";
 import { ticketsObjToNumberArray } from "../../helpers/helpers";
-import { ApiStatusEnum } from "../../interfaces/apiInterfaces";
+import {
+  ApiStatusEnum,
+  IPostUserTickets,
+} from "../../interfaces/apiInterfaces";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../routes";
+import { IPurchaseInfoRouteParams } from "../../pages/PurchaseInfo";
 
 interface Props {
   idRaffle: number;
@@ -38,7 +42,7 @@ function UserForm({
 
   async function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    const response = await postTakeTickets(
+    const response: IPostUserTickets = await postTakeTickets(
       idRaffle,
       ticketsObjToNumberArray(numbers),
       {
@@ -50,7 +54,11 @@ function UserForm({
     );
 
     if (response.status === ApiStatusEnum.success) {
-      navigate(routes.purchaseInfo);
+      const infoScreenData: IPurchaseInfoRouteParams = {
+        ...response.data,
+        name: userData.firstName + " " + userData.lastName,
+      };
+      navigate(routes.purchaseInfo, { state: infoScreenData });
     } else {
       reloadGridTickets();
       alert("There was an error, try with other tickets");

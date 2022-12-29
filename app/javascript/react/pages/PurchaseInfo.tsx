@@ -1,6 +1,23 @@
 import React from "react";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { formatNumber } from "../helpers/helpers";
+import { routes } from "../routes";
+
+export interface IPurchaseInfoRouteParams {
+  folioNumber: number;
+  tickets: number[];
+  raffleTitle: string;
+  raffleId: number;
+  name: string;
+}
 
 function PurchaseInfo() {
+  const state: IPurchaseInfoRouteParams = useLocation().state;
+
+  if (!state) {
+    return <Navigate to={routes.home} />;
+  }
+
   return (
     <div className="min-height py-5">
       <div className="text-center">
@@ -8,23 +25,27 @@ function PurchaseInfo() {
 
         <div className="bg-success py-3 text-white mb-4">
           <h3 className="p-0 m-0 mb-2">Congratulations</h3>
-          <p className="p-0 m-0">Geraldo Martinez</p>
+          <p className="p-0 m-0">{state.name}</p>
         </div>
 
         <p style={styles.info}>
-          <strong>Raffle:</strong> Car raffle
+          <strong>Raffle:</strong> {state.raffleTitle}
         </p>
         <p style={styles.info}>
-          <strong>Folio:</strong> 10001
+          <strong>Folio:</strong> {state.folioNumber}
         </p>
 
         <p className="m-0 p-0 mb-1 mt-3">
           <strong>Tickets</strong>
         </p>
         <div className="d-flex justify-content-center flex-wrap">
-          <div style={styles.ticket}>4001</div>
-          <div style={styles.ticket}>4001</div>
-          <div style={styles.ticket}>4001</div>
+          {state.tickets.map((ticket) => {
+            return (
+              <div key={ticket} style={styles.ticket}>
+                {formatNumber(ticket)}
+              </div>
+            );
+          })}
         </div>
       </div>
 

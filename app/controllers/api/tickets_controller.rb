@@ -27,6 +27,9 @@ class Api::TicketsController < ApplicationController
                 ticket_db.folio_id = @folio.id
                 ticket_db.save!
             end
+
+            folio_metadata.actual_number = new_folio
+            folio_metadata.save!
         end
 
         @status = :success

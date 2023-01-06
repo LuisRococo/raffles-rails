@@ -1,5 +1,6 @@
 class Api::RafflesController < ApplicationController
     def index
+        TakeTicket.save
         @raffles = Raffle.all
     end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_12_165050) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_12_165455) do
   create_table "folio_metadata", force: :cascade do |t|
     t.integer "start_number", null: false
     t.integer "actual_number", null: false
@@ -61,6 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_12_165050) do
     t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password_digest"
   end
 
 end

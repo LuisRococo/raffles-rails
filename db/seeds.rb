@@ -6,6 +6,19 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+User.create(username: 'root', 
+            first_name: 'root',
+            last_name: 'root',
+            password: 'root')
+User.create(username: 'root1', 
+            first_name: 'root1',
+            last_name: 'root1',
+            password: 'root1')
+User.create(username: 'root2', 
+            first_name: 'root2',
+            last_name: 'root2',
+            password: 'root2')
+
 TicketStatus.create!(id: 0, name: 'available')
 TicketStatus.create!(id: 1, name: 'taken')
 TicketStatus.create!(id: 2, name: 'bought')

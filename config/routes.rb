@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     get 'raffles/:id/tickets', to: 'raffles#tickets'
 
     post 'raffles/:id/take-tickets', to: 'tickets#take_tickets'
+
+    post 'login', to: 'auth#login'
   end
 
   get '*path', to: 'home#index'

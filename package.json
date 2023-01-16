@@ -5,6 +5,7 @@
     "@hotwired/stimulus": "^3.2.1",
     "@hotwired/turbo-rails": "^7.2.4",
     "@popperjs/core": "^2.11.6",
+    "@reduxjs/toolkit": "^1.9.1",
     "@types/jest": "^29.2.4",
     "@types/node": "^18.11.17",
     "@types/react": "^18.0.26",
@@ -14,6 +15,7 @@
     "esbuild": "^0.16.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.1",
     "sass": "^1.57.1",
     "typescript": "^4.9.4"

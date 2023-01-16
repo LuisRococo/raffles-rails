@@ -8,25 +8,29 @@ import Raffle from "./pages/Raffle";
 import ResetScroll from "./components/common/ResetScroll";
 import PurchaseInfo from "./pages/PurchaseInfo";
 import Login from "./pages/Login";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 function App() {
   return (
-    <Router>
-      <ResetScroll />
-      <div>
-        <NavBar />
+    <Provider store={store}>
+      <Router>
+        <ResetScroll />
+        <div>
+          <NavBar />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/raffle/:id" element={<Raffle />} />
-          <Route path="/purchase-info" element={<PurchaseInfo />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/raffle/:id" element={<Raffle />} />
+            <Route path="/purchase-info" element={<PurchaseInfo />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
 
-        <Footer />
-      </div>
-    </Router>
+          <Footer />
+        </div>
+      </Router>
+    </Provider>
   );
 }
 

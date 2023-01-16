@@ -18,6 +18,6 @@ class Api::AuthController < ApplicationController
         }
 
         @token = jwt_encode(token_payload)
-        @status = 200
+        @status = 'success'
     end
 end

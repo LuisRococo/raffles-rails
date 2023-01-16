@@ -4,6 +4,7 @@ import {
   IUserFormInfo,
   IBasicResponse,
   IPostUserTickets,
+  ILoginDAO,
 } from "../interfaces/apiInterfaces";
 
 export async function fetchRaffles() {
@@ -56,4 +57,20 @@ export async function postTakeTickets(
   res = await res.json();
 
   return res as IPostUserTickets;
+}
+
+export async function postLogin(username: string, password: string) {
+  const data = { username, password };
+
+  let res: any = await fetch(`/api/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  res = await res.json();
+
+  return res as ILoginDAO;
 }

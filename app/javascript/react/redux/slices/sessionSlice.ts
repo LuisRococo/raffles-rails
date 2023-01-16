@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { readSession, removeSession } from "../../helpers/auth";
+import { readSession, removeSession, saveSession } from "../../helpers/auth";
 import { ISession } from "../../interfaces/authInterfaces";
 
 function initialize(): ISession | null {
@@ -13,6 +13,7 @@ export const userSlice = createSlice({
   reducers: {
     setSession: (state, action) => {
       state.session = action.payload;
+      saveSession(action.payload);
     },
     deleteSession: (state) => {
       state.session = null;

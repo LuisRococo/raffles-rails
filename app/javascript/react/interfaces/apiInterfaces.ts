@@ -35,3 +35,9 @@ export interface IPostUserTickets extends IBasicResponse {
     raffleId: number;
   };
 }
+
+export interface ILoginDAO extends IBasicResponse {
+  data: {
+    payload: string;
+  };
+}
